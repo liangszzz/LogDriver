@@ -1,6 +1,6 @@
-package com.ls.driver;
+package com.github.yiyan1992.driver;
 
-import com.ls.Log.LoggerManager;
+import com.github.yiyan1992.log.LoggerManager;
 
 import java.sql.*;
 import java.util.Map;

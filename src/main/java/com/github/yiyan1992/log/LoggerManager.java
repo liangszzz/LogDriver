@@ -1,4 +1,4 @@
-package com.ls.Log;
+package com.github.yiyan1992.log;
 
 import java.sql.PreparedStatement;
 import java.util.Vector;

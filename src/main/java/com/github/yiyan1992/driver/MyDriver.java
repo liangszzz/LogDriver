@@ -1,9 +1,9 @@
-package com.ls.driver;
+package com.github.yiyan1992.driver;
 
-import com.ls.Log.LoggerManager;
-import com.ls.Log.MyLogger;
-import com.ls.Log.MySQL5Logger;
-import com.ls.Log.MySQL8Logger;
+import com.github.yiyan1992.log.MySQL5Logger;
+import com.github.yiyan1992.log.MySQL8Logger;
+import com.github.yiyan1992.log.LoggerManager;
+import com.github.yiyan1992.log.MyLogger;
 
 import java.sql.*;
 import java.util.Enumeration;
