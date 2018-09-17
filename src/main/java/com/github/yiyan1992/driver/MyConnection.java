@@ -7,11 +7,6 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Executor;
 
-/***
- * @author liang-shan@outlook.com
- * @createTime 2018-09-03
- * @DESC:
- */
 public class MyConnection implements Connection {
 
     private Connection connection;

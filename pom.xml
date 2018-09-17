@@ -26,11 +26,41 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.ls.Driver</groupId>
+    <groupId>com.github.yiyan1992</groupId>
     <artifactId>LsDriver</artifactId>
-    <version>1.1-SNAPSHOT</version>
+    <version>${project.release.version}</version>
     <packaging>jar</packaging>
 
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>7</version>
+    </parent>
+
+    <properties>
+        <java.version>1.8</java.version>
+        <project.release.version>1.1-SNAPSHOT</project.release.version>
+    </properties>
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <project.release.version>1.0-SNAPSHOT</project.release.version>
+            </properties>
+        </profile>
+        <profile>
+            <id>my-deploy-snapshot</id>
+            <properties>
+                <project.release.version>1.1-SNAPSHOT</project.release.version>
+            </properties>
+        </profile>
+        <profile>
+            <id>my-deploy-release</id>
+            <properties>
+                <project.release.version>1.1</project.release.version>
+            </properties>
+        </profile>
+    </profiles>
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -38,8 +68,25 @@
             <version>4.12</version>
             <scope>test</scope>
         </dependency>
-
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.12</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
+    <distributionManagement>
+        <repository>
+            <id>my-deploy-release</id>
+            <name>my-deploy-release</name>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+        </repository>
+        <snapshotRepository>
+            <id>my-deploy-snapshot</id>
+            <name>my-deploy-snapshot</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
     <build>
         <plugins>
             <plugin>
@@ -49,6 +96,46 @@
                     <source>8</source>
                     <target>8</target>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.0.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.0.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.6</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

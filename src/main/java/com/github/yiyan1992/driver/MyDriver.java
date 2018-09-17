@@ -12,11 +12,6 @@ import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Logger;
 
-/***
- * @author liang-shan@outlook.com
- * @createTime 2018-09-03
- * @DESC: 驱动
- */
 public class MyDriver implements Driver {
 
     private static Map<String, MyLogger> loggerMap=new ConcurrentHashMap<>();

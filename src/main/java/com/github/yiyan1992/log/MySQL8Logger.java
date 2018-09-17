@@ -3,11 +3,7 @@ package com.github.yiyan1992.log;
 import java.sql.PreparedStatement;
 import java.util.Arrays;
 
-/***
- * @author liang-shan@outlook.com
- * @createTime 2018-09-04
- * @DESC:
- */
+
 public class MySQL8Logger implements MyLogger {
 
     @Override

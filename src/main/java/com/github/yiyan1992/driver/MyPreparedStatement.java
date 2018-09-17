@@ -9,11 +9,6 @@ import java.net.URL;
 import java.sql.*;
 import java.util.Calendar;
 
-/***
- * @author liang-shan@outlook.com
- * @createTime 2018-09-03
- * @DESC:
- */
 public class MyPreparedStatement implements PreparedStatement {
 
     private PreparedStatement preparedStatement;

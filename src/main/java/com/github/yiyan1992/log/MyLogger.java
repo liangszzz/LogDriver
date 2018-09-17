@@ -4,11 +4,7 @@ import java.lang.reflect.Method;
 import java.sql.PreparedStatement;
 import java.time.LocalDateTime;
 
-/***
- * @author liang-shan@outlook.com
- * @createTime 2018-09-04
- * @DESC:
- */
+
 public interface MyLogger {
 
     void debug(String info);
