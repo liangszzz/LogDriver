@@ -1,16 +1,8 @@
-import com.github.yiyan1992.driver.MyDriver;
 import org.junit.Test;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 
-/***
- * @author liang-shan@outlook.com
- * @createTime 2018-09-03
- * @DESC:
- */
+
 public class TestSQL {
 
     /**
@@ -21,20 +13,19 @@ public class TestSQL {
     public void test() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");     //加载MYSQL JDBC驱动程序
-            DriverManager.registerDriver(new MyDriver());
-            //Class.forName("org.gjt.mm.mysql.Driver");
+            Class.forName("com.github.yiyan1992.driver.MyDriver");
         } catch (Exception e) {
             e.printStackTrace();
         }
         try {
-            Connection connect = DriverManager.getConnection("log-mysql8:jdbc:mysql://localhost:3306/demo?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC", "root", "123456");
+            Connection connect = DriverManager.getConnection("log-mysql8:jdbc:mysql://mysql.server:3306/sys?" +
+                    "useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC", "root",
+                    "123456");
             //连接URL为   jdbc:mysql//服务器地址/数据库名  ，后面的2个参数分别是登陆用户名和密码
-            PreparedStatement stmt = connect.prepareStatement("select * from sys_user");
+            PreparedStatement stmt = connect.prepareStatement("select * from sys_config");
             ResultSet rs = stmt.executeQuery();
-            //user 为你表的名称
-            while (rs.next()) {
-               System.out.println(rs.getString("username"));
-            }
+            ResultSetMetaData metaData = rs.getMetaData();
+            System.out.println(metaData.getColumnCount());
         } catch (Exception e) {
             e.printStackTrace();
         }

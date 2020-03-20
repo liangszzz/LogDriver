@@ -14,9 +14,16 @@ import java.util.logging.Logger;
 
 public class MyDriver implements Driver {
 
-    private static Map<String, MyLogger> loggerMap=new ConcurrentHashMap<>();
+    private static final Map<String, MyLogger> loggerMap=new ConcurrentHashMap<>();
 
     static {
+
+        try {
+            java.sql.DriverManager.registerDriver(new MyDriver());
+        } catch (SQLException E) {
+            throw new RuntimeException("Can't register driver!");
+        }
+
         loggerMap.put("log-mysql5", new MySQL5Logger());
         loggerMap.put("log-mysql8", new MySQL8Logger());
     }
@@ -29,8 +36,8 @@ public class MyDriver implements Driver {
         return new MyConnection(connection);
     }
 
-    public boolean acceptsURL(String url) throws SQLException {
-        return driver == null ? true : false;
+    public boolean acceptsURL(String url) {
+        return driver == null;
     }
 
     public DriverPropertyInfo[] getPropertyInfo(String url, Properties info) throws SQLException {
@@ -46,7 +53,7 @@ public class MyDriver implements Driver {
     }
 
     public boolean jdbcCompliant() {
-        return driver == null ? false : driver.jdbcCompliant();
+        return driver != null && driver.jdbcCompliant();
     }
 
     public Logger getParentLogger() throws SQLFeatureNotSupportedException {

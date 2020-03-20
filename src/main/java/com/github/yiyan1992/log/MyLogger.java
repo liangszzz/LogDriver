@@ -19,10 +19,10 @@ public interface MyLogger {
 
     void debug(PreparedStatement preparedStatement, String sql, String[] columnNames);
 
-    String getclazzName();
+    String getClazzName();
 
     default void printInfo(String string) {
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
         LocalDateTime localDateTime = LocalDateTime.now();
         buffer.append(" [").append(localDateTime.toLocalDate()).append(localDateTime.toLocalTime()).append("]");
         buffer.append(" [").append(Thread.currentThread().getId()).append("]");
@@ -38,6 +38,7 @@ public interface MyLogger {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+        assert clazz != null;
 
         if (clazz.isInstance(preparedStatement)) {
             try {

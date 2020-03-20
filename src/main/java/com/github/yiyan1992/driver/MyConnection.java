@@ -9,7 +9,7 @@ import java.util.concurrent.Executor;
 
 public class MyConnection implements Connection {
 
-    private Connection connection;
+    private final Connection connection;
 
     public MyConnection(Connection connection) {
         this.connection = connection;

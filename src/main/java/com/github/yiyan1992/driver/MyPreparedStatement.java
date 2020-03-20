@@ -11,7 +11,7 @@ import java.util.Calendar;
 
 public class MyPreparedStatement implements PreparedStatement {
 
-    private PreparedStatement preparedStatement;
+    private final PreparedStatement preparedStatement;
 
     public MyPreparedStatement(PreparedStatement preparedStatement) {
         this.preparedStatement = preparedStatement;
