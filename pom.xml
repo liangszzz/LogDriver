@@ -45,19 +45,19 @@
         <profile>
             <id>dev</id>
             <properties>
-                <project.release.version>1.0-SNAPSHOT</project.release.version>
+                <project.release.version>1.2-SNAPSHOT</project.release.version>
             </properties>
         </profile>
         <profile>
             <id>my-deploy-snapshot</id>
             <properties>
-                <project.release.version>1.1-SNAPSHOT</project.release.version>
+                <project.release.version>1.2-SNAPSHOT</project.release.version>
             </properties>
         </profile>
         <profile>
             <id>my-deploy-release</id>
             <properties>
-                <project.release.version>1.1</project.release.version>
+                <project.release.version>1.2</project.release.version>
             </properties>
         </profile>
     </profiles>
