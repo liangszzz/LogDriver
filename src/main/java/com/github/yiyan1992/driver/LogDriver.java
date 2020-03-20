@@ -1,39 +1,29 @@
 package com.github.yiyan1992.driver;
 
-import com.github.yiyan1992.log.MySQL5Logger;
-import com.github.yiyan1992.log.MySQL8Logger;
-import com.github.yiyan1992.log.LoggerManager;
-import com.github.yiyan1992.log.MyLogger;
-
 import java.sql.*;
 import java.util.Enumeration;
-import java.util.Map;
 import java.util.Properties;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Logger;
 
-public class MyDriver implements Driver {
+public class LogDriver implements Driver {
 
-    private static final Map<String, MyLogger> loggerMap=new ConcurrentHashMap<>();
+
+    private static final String HEAD = "logSQL";
 
     static {
-
         try {
-            java.sql.DriverManager.registerDriver(new MyDriver());
+            java.sql.DriverManager.registerDriver(new LogDriver());
         } catch (SQLException E) {
             throw new RuntimeException("Can't register driver!");
         }
-
-        loggerMap.put("log-mysql5", new MySQL5Logger());
-        loggerMap.put("log-mysql8", new MySQL8Logger());
     }
 
     Driver driver;
 
     public Connection connect(String url, Properties info) throws SQLException {
         setDriver(url);
-        Connection connection = driver == null ? null : driver.connect(url.substring(url.indexOf(":")+1), info);
-        return new MyConnection(connection);
+        Connection connection = driver == null ? null : driver.connect(url.substring(url.indexOf(":") + 1), info);
+        return new LogConnection(connection);
     }
 
     public boolean acceptsURL(String url) {
@@ -61,15 +51,14 @@ public class MyDriver implements Driver {
     }
 
     private void setDriver(String url) throws SQLException {
-        String url_head=url.substring(0,url.indexOf(":"));
-        if(loggerMap.containsKey(url_head)){
-            String new_url = url.substring(url.indexOf(":")+1);
+        String url_head = url.substring(0, url.indexOf(":"));
+        if (HEAD.equals(url_head)) {
+            String new_url = url.substring(url.indexOf(":") + 1);
             Enumeration<Driver> drivers = DriverManager.getDrivers();
             while (drivers.hasMoreElements()) {
                 Driver d = drivers.nextElement();
                 if (d.acceptsURL(new_url)) {
                     driver = d;
-                    LoggerManager.register(loggerMap.get(url_head));
                 }
             }
         }
