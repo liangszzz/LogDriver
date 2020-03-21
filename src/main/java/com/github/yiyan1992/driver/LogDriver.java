@@ -27,7 +27,7 @@ public class LogDriver implements Driver {
     }
 
     public boolean acceptsURL(String url) {
-        return driver == null;
+        return url.startsWith(HEAD);
     }
 
     public DriverPropertyInfo[] getPropertyInfo(String url, Properties info) throws SQLException {
@@ -51,9 +51,8 @@ public class LogDriver implements Driver {
     }
 
     private void setDriver(String url) throws SQLException {
-        String url_head = url.substring(0, url.indexOf(":"));
-        if (HEAD.equals(url_head)) {
-            String new_url = url.substring(url.indexOf(":") + 1);
+        if (url.startsWith(HEAD)) {
+            String new_url = url.substring(HEAD.length() + 1);
             Enumeration<Driver> drivers = DriverManager.getDrivers();
             while (drivers.hasMoreElements()) {
                 Driver d = drivers.nextElement();
